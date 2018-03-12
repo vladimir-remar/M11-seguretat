@@ -1,0 +1,138 @@
+=====================================================================
+ASI C5 Desenvolupament de funcions en elsistema informàtic
+UD4. Seguretat i Monitorització
+Curs 2007-2008
+Febrer 2008
+=====================================================================
+
+pendent
+.cer
+.der
+.pem
+.p7c
+.p12
+
+
+=====================================================================
+Certificats
+=====================================================================
+
+---------------------------------------------------------------------
+Mecanisme de certificació:
+---------------------------------------------------------------------
+1) PKI Public key infrastructure: Basat en signatures de una autoritat certificadora CA.
+2) Confiança en les claus dels altres: web trust scheme. Són self-signed certificats.
+
+Perquè usar certificats i no simplement usar les claus públiques dels altres per comunicar-nos amb ells?
+Si rebem la clau pública de alice i en realitat no és la de alice sinó la de un altre, aquest pot desxifrar
+amb la seva clau privada el que li diem a l'alice. La qüestió és, com se que la clau pública de fulanito és 
+realment de fulanito? O bém'en refio o bé ho contrasto amb una entitat certificadora.
+
+
+---------------------------------------------------------------------
+Public key certificate
+---------------------------------------------------------------------
+
+Public key certificate: document amb firma digital que conté: (public key + identity) d'algú
+el certificat està signat per alguna autoritat que emet certificats i garanteix que fulanito
+és tal i que la seva clau pública és tal.
+
+Un certificat és associar la clau pública d'algú amb la seva identitat.
+El certificat es firma per una CA. Per firmar es fa un hash i se li aplica la clau privada de
+la CA (generalment algorisme RSA).
+
+El certicficat actual més usat és el X.509. Permet el seu ús en LDAP (X.500 schema).
+El software per generar certificats:OpenSSL,OpenCA, EJBCA
+
+
+---------------------------------------------------------------------
+Public Key Infraestructure: PKI
+---------------------------------------------------------------------
+
+En una estructura PKI una tercera part TTP (trusted tried party) signa el certificat per
+donar-li validesa. Es tracta d'una entitat certificadora CA.
+En una estructura web of trust el certificat l'envia un paio ite'l creus o no. Són self-signed
+certificats. Un exemples és el PGP i  Open PGP amb el GNU PG.
+
+En una estructura PKI el certificat està signat per una autoritat  certificadora. Qui certifica
+ aquesta? una altra entitat de nivell superior. I així fins al nivell arrel. No existeix una única
+arrel. Els navegadors porten impelmentats diverses entitats arrel.
+
+Es confiarà en un certificat si en algun punt dela cadena (cap al'arrel) es troba una entitat en la
+que el receptor si hi confia.
+
+NO es xequegen les CA per preguntar-li si el certificat és vàlid ono (massa temps d'espera) sinó que
+els certificats poden incloure la cadena de certificacions fins la seva arrel i es d'esperar que el
+receprot trobarà en algun punt d'aquesta cadena una entitat en la que confia.
+
+Per tant un certificat pot incloure a més a més un conjunt d'altres certificats (el de les entitats 
+que l'han certificat des de l'arrel). Certificate hierarchy.
+
+Com es certifica un certificat? La CA  el firma la clau pública del fulanito amb la seva clau privada
+(es pot comprobar la validesa del certificat usant la  clau pública del CA).
+EL CA pot incloure la seva clau pública signada per una entitat superior, això permet validar el certificat.
+Si calinclou també la clau pública de l'entitat superior-superior que ha signat la superior... fins arribar
+a una entitat en la que es confia o en la que el navegador ja esta preconfigurat.
+
+*** nota: mirar exemple de certificat X.509 de la wiki o mirar un certificat real d'exemple
+
+---------------------------------------------------------------------
+X.598:
+---------------------------------------------------------------------
+clau assimètrica. Clau publica / clau privada
+
+X.509 estandard de certificat de PKI Public Key Infrastructure.
+Basat en una estructura jeràrquica de entitats certidficadores CA
+
+.cer	CER encoded certificate. seqüències de certificat
+.der	DER encoded certificate
+.PEM	Privacy Ennhanced Mail. Base64 encoded DER.
+.P7b
+.P7c	PKCS#7 certificat
+.PFX
+.P12	PKCS#12 pot contenir certificats publics i claus privades
+
+
+
+---------------------------------------------------------------------
+Clau Asimètrica:clau pública/clau privada
+RSA
+ElGAMAL
+---------------------------------------------------------------------
+RSA:
+algorisme de clau publica/privada. encriptar i signar.
+Rivest, Shamir, Adleman (del MIT)
+No van pensar a patentar-lo fora els usa.Ara ja patent caducada.
+M - Epublick --> M1 --> Dprivadak - M
+
+
+
+---------------------------------------------------------------------
+Clau Simètrica
+DES:
+DES3:
+AES
+---------------------------------------------------------------------
+E, D: Algosrismes coneguts d'encriptar i desemcriptar
+K: Clau idem emisor i receptor
+M - Ek(M) --> M1 --> Dk(M1) - M
+
+Algorismes declau simètrica més fàcils i ràpids de calcular. Claus més petites.
+Per això s'utilitza en les comunicacions en 'cru'. IPsec, ssh...
+
+DES: problema de fiabilitat de clau i dubtes de porta trasera
+DES3: més utilitzat. Clau reforçada. 
+AES: concurs public (uns belgues). Per ser el nou estàndard. 128bytes 196bytes, 256bytes
+
+
+
+
+
+---------------------------------------------------------------------
+Hash del missatge:
+MD5:
+SHA1:
+---------------------------------------------------------------------
+
+
+
